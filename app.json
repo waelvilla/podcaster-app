@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "podcaster",
-    "slug": "podcaster",
+    "name": "podcaster-app",
+    "slug": "podcaster-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
