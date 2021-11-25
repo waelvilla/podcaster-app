@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import i18n from "i18n-js";
-import { Input, Checkbox, Button, Text as NBText } from "native-base";
-import {GRADIENT_START, GRADIENT_END} from '../../constants/Colors';
+import { Input, Checkbox, Button, Text as NBText, Image } from "native-base";
+import { GRADIENT_START, GRADIENT_END } from "../../constants/Colors";
 import { View, Text } from "../../components/Themed";
 import styles from "./styles";
 import MaskedView from "@react-native-masked-view/masked-view";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
+import LinearButton from "../../components/Buttons/LinearButton";
+import IconButton from "../../components/Buttons/IconButton";
 
 i18n.translations = {
   en: {
@@ -29,19 +31,28 @@ const Login = () => {
 
   const Header = () => {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <MaskedView
-          style={{ height: 70, width: '100%' }}
-          maskElement={<NBText style={{textAlign: 'center', letterSpacing: 3}} fontSize="5xl">{'PODCASTER'}</NBText>}
+          style={{ height: 70, width: "100%" }}
+          maskElement={
+            <NBText
+              style={{ textAlign: "center", letterSpacing: 3 }}
+              fontSize="5xl"
+            >
+              {"PODCASTER"}
+            </NBText>
+          }
         >
           <LinearGradient
             colors={[GRADIENT_START, GRADIENT_END]}
             start={{ x: 0, y: 1 }}
             end={{ x: 0, y: 0 }}
-            style={{ flex: 1,  }}
+            style={{ flex: 1 }}
           />
         </MaskedView>
-        <Text style={{ color: "#CCC", fontFamily: 'space-mono' }}>{i18n.t("subtitle")}</Text>
+        <Text style={{ color: "#CCC", fontFamily: "space-mono" }}>
+          {i18n.t("subtitle")}
+        </Text>
         {WelcomeBack()}
       </View>
     );
@@ -49,9 +60,19 @@ const Login = () => {
 
   const WelcomeBack = () => {
     return (
-      <View style={{marginTop: 30, justifyContent: "center", alignItems: "center" }}>
-        <NBText fontSize="lg" color="white" >{i18n.t("welcomeBack")}</NBText>
-        <NBText fontSize="sm" color="#CCC">{i18n.t("loginSubtitle")}</NBText>
+      <View
+        style={{
+          marginTop: 30,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <NBText fontSize="lg" color="white">
+          {i18n.t("welcomeBack")}
+        </NBText>
+        <NBText fontSize="xs" color="#999999">
+          {i18n.t("loginSubtitle")}
+        </NBText>
       </View>
     );
   };
@@ -64,6 +85,7 @@ const Login = () => {
           type="email"
           backgroundColor="#1D192C"
           borderWidth="0"
+          height="42"
           mx="3"
           w={{
             base: "75%",
@@ -76,6 +98,7 @@ const Login = () => {
           backgroundColor="#1D192C"
           borderWidth="0"
           marginY="5"
+          height="42"
           mx="3"
           w={{
             base: "75%",
@@ -94,36 +117,69 @@ const Login = () => {
               value={"rememberMe"}
               isChecked={rememberMe}
               accessibilityLabel="Remember Me"
+              colorScheme="trueGray"
+              backgroundColor="#1D192C"
               defaultIsChecked
-              onChange={(newVal) => console.log(newVal)}
+              onChange={(newVal) => setRememberMe(newVal)}
             />
-            <Text>{i18n.t("rememberMe")}</Text>
+            <NBText color="#999999" fontSize="xs">
+              {"  "}
+              {i18n.t("rememberMe")}
+            </NBText>
           </View>
-          <Text>{i18n.t("forgotPassword")}</Text>
+          <NBText color="#999999" fontSize="xs">
+            {i18n.t("forgotPassword")}
+          </NBText>
         </View>
       </View>
+    );
+  };
+
+  const GoogleButton = () => {
+    return (
+      <Button
+        style={{
+          width: "75%",
+          height: 40,
+          backgroundColor: "#FFF",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#FFF",
+          }}
+        >
+          <Image
+            source={require("../../../assets/images/google.png")}
+            width={5}
+            height={5}
+          />
+          <NBText style={{ marginHorizontal: 10, color: "#000" }}>{i18n.t("loginGoogle")}</NBText>
+        </View>
+      </Button>
     );
   };
 
   const ActionButtons = () => {
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Button
-          w={{
-            base: "75%",
-            md: "25%",
+        <LinearButton
+          text="Login"
+          onPress={() => {
+            console.log("hii");
+          }}
+        />
+        <NBText
+          style={{
+            color: "#999999",
+            textAlign: "center",
+            marginVertical: 20,
           }}
         >
-          {i18n.t("login")}
-        </Button>
-        <Button
-          w={{
-            base: "75%",
-            md: "25%",
-          }}
-        >
-          {i18n.t("loginGoogle")}
-        </Button>
+          OR
+        </NBText>
+        <IconButton text={i18n.t("loginGoogle")} image={require("../../../assets/images/google.png")} />
         <Button
           w={{
             base: "75%",

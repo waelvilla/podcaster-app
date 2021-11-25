@@ -15,12 +15,17 @@ export default function App() {
   const colorScheme = useColorScheme();
   i18n.locale = Localization.locale.includes('en')? 'en' : Localization.locale;
 
+  const NBConfig = {
+    dependencies: {
+      'linear-gradient': require('expo-linear-gradient').LinearGradient
+    }
+  }
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <SafeAreaProvider>
-        <NativeBaseProvider>
+        <NativeBaseProvider config={NBConfig}>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
         </NativeBaseProvider>
