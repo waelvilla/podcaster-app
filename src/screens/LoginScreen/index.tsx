@@ -19,6 +19,7 @@ i18n.translations = {
     welcomeBack: "Welcome Back!",
     loginSubtitle: "Login to continue where you left off!",
     login: "Log in",
+    or: "OR",
     loginGoogle: "Continue with Google",
     loginFacebook: "Continue with Facebook",
     dontHaveAccount: "Don't have an account?",
@@ -32,16 +33,7 @@ const Login = () => {
 
   const Header = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 60,
-          // borderColor: 'yellow',
-          // borderWidth: 1
-        }}
-      >
+      <View style={styles.headerView}>
         <MaskedView
           style={{ height: 70, width: "100%" }}
           maskElement={
@@ -70,13 +62,7 @@ const Login = () => {
 
   const WelcomeBack = () => {
     return (
-      <View
-        style={{
-          marginTop: 30,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.welcomeView}>
         <NBText fontSize="lg" color="white">
           {i18n.t("welcomeBack")}
         </NBText>
@@ -89,15 +75,7 @@ const Login = () => {
 
   const LoginForm = () => {
     return (
-      <View
-        style={{
-          marginBottom: 30,
-          alignItems: "center",
-          marginTop: 30,
-          // borderColor: "blue",
-          // borderWidth: 1,
-        }}
-      >
+      <View style={styles.loginView}>
         <Input
           placeholder="Email Address"
           type="email"
@@ -146,8 +124,6 @@ const Login = () => {
         style={{
           flex: 1,
           alignItems: "center",
-          // borderColor: "green",
-          // borderWidth: 1,
         }}
       >
         <LinearButton
@@ -163,7 +139,7 @@ const Login = () => {
             marginVertical: 20,
           }}
         >
-          OR
+          {i18n.t("OR")}
         </NBText>
         <IconButton
           text={i18n.t("loginGoogle")}
@@ -171,7 +147,11 @@ const Login = () => {
         />
         <IconButton
           text={i18n.t("loginFacebook")}
-          style={{ backgroundColor: "#3b5999", marginTop: 10, marginBottom: 30 }}
+          style={{
+            backgroundColor: "#3b5999",
+            marginTop: 10,
+            marginBottom: 30,
+          }}
           textStyle={{ color: "#FFF" }}
           image={require("../../../assets/images/facebook.png")}
         />
