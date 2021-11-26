@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, IImageProps, Image, Text as NBText } from "native-base";
-import { View } from "../../components/Themed";
-import { ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { ImageStyle, View, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 const IconButton = ({
   text,
@@ -30,7 +29,6 @@ const IconButton = ({
       <View
         style={{
           flexDirection: "row",
-          backgroundColor: "#FFF",
         }}
       >
         <Image source={image} style={imageStyle} width={5} height={5} />

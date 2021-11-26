@@ -8,6 +8,7 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import LinearButton from "../../components/Buttons/LinearButton";
 import IconButton from "../../components/Buttons/IconButton";
+import { TouchableOpacity } from "react-native";
 
 i18n.translations = {
   en: {
@@ -31,7 +32,16 @@ const Login = () => {
 
   const Header = () => {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 60,
+          // borderColor: 'yellow',
+          // borderWidth: 1
+        }}
+      >
         <MaskedView
           style={{ height: 70, width: "100%" }}
           maskElement={
@@ -79,14 +89,19 @@ const Login = () => {
 
   const LoginForm = () => {
     return (
-      <View style={{ flex: 1, alignItems: "center" }}>
+      <View
+        style={{
+          marginBottom: 30,
+          alignItems: "center",
+          marginTop: 30,
+          // borderColor: "blue",
+          // borderWidth: 1,
+        }}
+      >
         <Input
           placeholder="Email Address"
           type="email"
-          backgroundColor="#1D192C"
-          borderWidth="0"
-          height="42"
-          mx="3"
+          style={styles.textInput}
           w={{
             base: "75%",
             md: "25%",
@@ -95,24 +110,14 @@ const Login = () => {
         <Input
           placeholder="Password"
           type="password"
-          backgroundColor="#1D192C"
-          borderWidth="0"
-          marginY="5"
-          height="42"
-          mx="3"
+          style={styles.textInput}
           w={{
             base: "75%",
             md: "25%",
           }}
         />
-        <View
-          style={{
-            width: "75%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <View style={{ flexDirection: "row" }}>
+        <View style={styles.checkboxView}>
+          <View style={styles.flexRow}>
             <Checkbox
               value={"rememberMe"}
               isChecked={rememberMe}
@@ -123,7 +128,7 @@ const Login = () => {
               onChange={(newVal) => setRememberMe(newVal)}
             />
             <NBText color="#999999" fontSize="xs">
-              {"  "}
+              {"\t"}
               {i18n.t("rememberMe")}
             </NBText>
           </View>
@@ -135,35 +140,16 @@ const Login = () => {
     );
   };
 
-  const GoogleButton = () => {
-    return (
-      <Button
-        style={{
-          width: "75%",
-          height: 40,
-          backgroundColor: "#FFF",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#FFF",
-          }}
-        >
-          <Image
-            source={require("../../../assets/images/google.png")}
-            width={5}
-            height={5}
-          />
-          <NBText style={{ marginHorizontal: 10, color: "#000" }}>{i18n.t("loginGoogle")}</NBText>
-        </View>
-      </Button>
-    );
-  };
-
   const ActionButtons = () => {
     return (
-      <View style={{ flex: 1, alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          // borderColor: "green",
+          // borderWidth: 1,
+        }}
+      >
         <LinearButton
           text="Login"
           onPress={() => {
@@ -179,15 +165,16 @@ const Login = () => {
         >
           OR
         </NBText>
-        <IconButton text={i18n.t("loginGoogle")} image={require("../../../assets/images/google.png")} />
-        <Button
-          w={{
-            base: "75%",
-            md: "25%",
-          }}
-        >
-          {i18n.t("loginFacebook")}
-        </Button>
+        <IconButton
+          text={i18n.t("loginGoogle")}
+          image={require("../../../assets/images/google.png")}
+        />
+        <IconButton
+          text={i18n.t("loginFacebook")}
+          style={{ backgroundColor: "#3b5999", marginTop: 10, marginBottom: 30 }}
+          textStyle={{ color: "#FFF" }}
+          image={require("../../../assets/images/facebook.png")}
+        />
       </View>
     );
   };
@@ -196,10 +183,33 @@ const Login = () => {
     return (
       <View>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <Text>{i18n.t("dontHaveAccount")}</Text>
-          <Text>{i18n.t("signup")}</Text>
+          <NBText
+            style={{
+              color: "#999999",
+            }}
+          >
+            {i18n.t("dontHaveAccount")}
+          </NBText>
+          <TouchableOpacity style={{ marginHorizontal: 5 }}>
+            <NBText color="#FB6580">{i18n.t("signup")}</NBText>
+          </TouchableOpacity>
         </View>
-        <Text>{i18n.t("tosWarning")}</Text>
+        <View
+          style={{
+            alignItems: "center",
+            width: "75%",
+            alignSelf: "center",
+            marginBottom: 40,
+            marginTop: 60,
+          }}
+        >
+          <NBText
+            style={{ textAlign: "center", color: "#999999" }}
+            fontSize="xs"
+          >
+            {i18n.t("tosWarning")}
+          </NBText>
+        </View>
       </View>
     );
   };
@@ -209,7 +219,7 @@ const Login = () => {
       {Header()}
       {LoginForm()}
       {ActionButtons()}
-      {/* {Footer()} */}
+      {Footer()}
     </View>
   );
 };
