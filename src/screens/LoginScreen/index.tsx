@@ -143,7 +143,7 @@ const Login = ({navigation}: RootTabScreenProps<'Login'>) => {
             marginVertical: 20,
           }}
         >
-          {i18n.t("OR")}
+          {i18n.t("or")}
         </NBText>
         <IconButton
           text={i18n.t("loginGoogle")}
