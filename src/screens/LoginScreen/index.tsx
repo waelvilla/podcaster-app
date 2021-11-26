@@ -9,6 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import LinearButton from "../../components/Buttons/LinearButton";
 import IconButton from "../../components/Buttons/IconButton";
 import { TouchableOpacity } from "react-native";
+import { RootTabScreenProps } from "../../types";
 
 i18n.translations = {
   en: {
@@ -28,8 +29,13 @@ i18n.translations = {
       "By singing up you indicate that you have read and agreed to the Terms of Service",
   },
 };
-const Login = () => {
+const Login = ({navigation}: RootTabScreenProps<'Login'>) => {
+  
   const [rememberMe, setRememberMe] = useState(true);
+
+  const onClickLogin = () => {
+    navigation.navigate('Root', {screen: 'Home'});
+  };
 
   const Header = () => {
     return (
@@ -128,9 +134,7 @@ const Login = () => {
       >
         <LinearButton
           text="Login"
-          onPress={() => {
-            console.log("hii");
-          }}
+          onPress={onClickLogin}
         />
         <NBText
           style={{
