@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import Colors from "../../constants/Colors";
+import Colors from "../../utils/constants/Colors";
 
 const styles = StyleSheet.create({
   headerView: {

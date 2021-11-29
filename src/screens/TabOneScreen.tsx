@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import useColorScheme from '../hooks/useColorScheme';
-import { RootTabScreenProps } from '../types';
+import { RootTabScreenProps } from '../utils/types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   

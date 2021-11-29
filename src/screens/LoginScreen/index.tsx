@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import i18n from "i18n-js";
 import { Input, Checkbox, Button, Text as NBText, Spinner } from "native-base";
-import { GRADIENT_START, GRADIENT_END } from "../../constants/Colors";
+import { GRADIENT_START, GRADIENT_END } from "../../utils/constants/Colors";
 import { View, Text } from "../../components/Themed";
 import styles from "./styles";
 import MaskedView from "@react-native-masked-view/masked-view";
@@ -9,7 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import LinearButton from "../../components/Buttons/LinearButton";
 import IconButton from "../../components/Buttons/IconButton";
 import { TouchableOpacity } from "react-native";
-import { RootTabScreenProps } from "../../types";
+import { RootTabScreenProps } from "../../utils/types";
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "../../gql/mutations";
 import encrypt from "../../utils/encrypt";

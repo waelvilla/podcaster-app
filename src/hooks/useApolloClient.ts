@@ -7,7 +7,7 @@ import {
 } from '@apollo/client';
 import {AsyncStorageWrapper, CachePersistor} from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {persistenceMapper} from '../storage/persistenceMapper';
+import {persistenceMapper} from '../config/storage/persistenceMapper';
 import { url } from '../config/env';
 
 export const useApolloClient = () => {

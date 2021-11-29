@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 import { Box, Button } from "native-base";
-import { GRADIENT_START, GRADIENT_END } from "../../constants/Colors";
+import { GRADIENT_START, GRADIENT_END } from "../../utils/constants/Colors";
 
 export const LinearButton = ({
   text,
