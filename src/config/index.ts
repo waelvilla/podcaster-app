@@ -1,8 +1,6 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import i18n from "i18n-js";
+import * as Localization from "expo-localization";
 
-// Initialize Apollo Client
-export const client = new ApolloClient({
-  uri: 'localhost:4000/graphql',
-  cache: new InMemoryCache()
-});
 
+// Setting app locale
+i18n.locale = Localization.locale.includes("en") ? "en" : Localization.locale;

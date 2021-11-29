@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import i18n from "i18n-js";
-import { Input, Checkbox, Button, Text as NBText, Image } from "native-base";
+import { Input, Checkbox, Button, Text as NBText, Spinner } from "native-base";
 import { GRADIENT_START, GRADIENT_END } from "../../constants/Colors";
 import { View, Text } from "../../components/Themed";
 import styles from "./styles";
@@ -10,6 +10,10 @@ import LinearButton from "../../components/Buttons/LinearButton";
 import IconButton from "../../components/Buttons/IconButton";
 import { TouchableOpacity } from "react-native";
 import { RootTabScreenProps } from "../../types";
+import { useMutation } from "@apollo/client";
+import { LOGIN_MUTATION } from "../../gql/mutations";
+import encrypt from "../../utils/encrypt";
+import { useEffect } from "react";
 
 i18n.translations = {
   en: {
@@ -25,16 +29,34 @@ i18n.translations = {
     loginFacebook: "Continue with Facebook",
     dontHaveAccount: "Don't have an account?",
     signup: "Sign up",
+    errorLogin: "error occurred while logging you in",
     tosWarning:
       "By singing up you indicate that you have read and agreed to the Terms of Service",
   },
 };
-const Login = ({navigation}: RootTabScreenProps<'Login'>) => {
-  
+const Login = ({ navigation }: RootTabScreenProps<"Login">) => {
   const [rememberMe, setRememberMe] = useState(true);
+  const [username, setUsername] = useState("wael");
+  const [password, setPassword] = useState("hello");
 
-  const onClickLogin = () => {
-    navigation.navigate('Root', {screen: 'Home'});
+  const [mutate, { loading, data: loginResponse, error: loginError }] =
+    useMutation(LOGIN_MUTATION, {
+      onError: (err) => {
+        console.log("error: ", err);
+      },
+    });
+
+  useEffect(() => {
+    if (loginResponse?.loginUser) {
+      navigation.navigate("Root", { screen: "Home" });
+    }
+  }, [loginResponse, loginError]);
+
+  const onClickLogin = async () => {
+    const encryptedPass = await encrypt(password);
+    console.log("pass:", encryptedPass);
+
+    mutate({ variables: { username, password: encryptedPass } });
   };
 
   const Header = () => {
@@ -83,9 +105,11 @@ const Login = ({navigation}: RootTabScreenProps<'Login'>) => {
     return (
       <View style={styles.loginView}>
         <Input
-          placeholder="Email Address"
-          type="email"
+          placeholder="enter your username"
+          type="text"
           style={styles.textInput}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
           w={{
             base: "75%",
             md: "25%",
@@ -94,6 +118,8 @@ const Login = ({navigation}: RootTabScreenProps<'Login'>) => {
         <Input
           placeholder="Password"
           type="password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
           style={styles.textInput}
           w={{
             base: "75%",
@@ -125,6 +151,9 @@ const Login = ({navigation}: RootTabScreenProps<'Login'>) => {
   };
 
   const ActionButtons = () => {
+    if (loading) {
+      return <Spinner color="white" />;
+    }
     return (
       <View
         style={{
@@ -132,10 +161,12 @@ const Login = ({navigation}: RootTabScreenProps<'Login'>) => {
           alignItems: "center",
         }}
       >
-        <LinearButton
-          text="Login"
-          onPress={onClickLogin}
-        />
+        {loginError ? (
+          <NBText textAlign="center" color="red.500">
+            {i18n.t("errorLogin")}
+          </NBText>
+        ) : null}
+        <LinearButton text="Login" onPress={onClickLogin} />
         <NBText
           style={{
             color: "#999999",

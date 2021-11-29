@@ -1,28 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import * as Localization from "expo-localization";
-import i18n from "i18n-js";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, Spinner } from "native-base";
 import { ApolloProvider } from "@apollo/client";
 
 import useCachedResources from "./src/hooks/useCachedResources";
 import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
-import { client } from "./src/config";
+import {useApolloClient} from './src/hooks/useApolloClient';
+import Loading from "./src/screens/LoadingScreen";
+
 
 export default function App() {
+  const { client, clearCache } = useApolloClient();
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-  i18n.locale = Localization.locale.includes("en") ? "en" : Localization.locale;
-
+  
   const NBConfig = {
     dependencies: {
       "linear-gradient": require("expo-linear-gradient").LinearGradient,
     },
   };
-  if (!isLoadingComplete) {
-    return null;
+  if (!isLoadingComplete || !client) {
+    return <Loading />
   } else {
     return (
       <ApolloProvider client={client}>

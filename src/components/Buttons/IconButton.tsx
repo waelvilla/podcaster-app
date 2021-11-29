@@ -31,7 +31,7 @@ const IconButton = ({
           flexDirection: "row",
         }}
       >
-        <Image source={image} style={imageStyle} width={5} height={5} />
+        <Image source={image} style={imageStyle} width={5} height={5} alt={text} />
         <NBText style={[{ marginHorizontal: 10, color: "#000" }, textStyle]}>
           {text}
         </NBText>

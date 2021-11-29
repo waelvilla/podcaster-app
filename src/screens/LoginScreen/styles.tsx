@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.dark.background,
   },
   textInput: {
+    color: '#5C5E6F',
     backgroundColor: "#1D192C",
     borderWidth: 0,
     height: 42,
